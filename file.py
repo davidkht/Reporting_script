@@ -19,35 +19,51 @@ def walking(folder):
 
 # Take an argument from the terminal
 path = sys.argv[1]
+option=sys.argv[2]
 # Call the walking function to get all file information in the specified path
 all_files = walking(path)
-
-
 num=0
-# only 1 of the three options must be used. Comment the one not used.
+
 # Sort the list of all_files based on the second element of each tuple (size),
-# in descending order (largest to smallest) using the sorted() function.
-# The key parameter specifies a function of one argument that is used to extract a comparison key from each tuple.
+# The key parameter specifies a function of one argument that is used to extract a comparison 
+# key from each tuple.
 # Here, we use a lambda function to specify the key as the second element (x[1]) of each tuple.
 # The lambda function takes each tuple (x) and returns its second element (size) for comparison.
 # The reverse parameter is set to True to sort the list in descending order.
 # The resulting sorted list is iterated in the for loop.
-for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):
-    #option 1: prints the 10 largest files
-    # if num>10:
-    #     break    
-    # print(f"File: {abpath}, Size: {size/1000}KB")
 
-    #option 2: prints only files with size between 600 and 1000 bytes
-    # if 600<size<2000:
-    #     print(f"File: {abpath}, Size: {size/1000}KB")
+# option 1: Display the {input} largest files
+if option=='1':
+    number=int(input("Write the number of filepaths you want to see: "))
+    for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):        
+        if num>number:
+            break    
+        print(f"{num}). Size: {size/1000}KB, File: {abpath}")
+        num+=1
+# option 2: prints only files with size between input and input bytes
+elif option=='2':  
 
-    #option 3: only files ending in .{format}    
-    format='.py'
-    lenght=len(format)
-    if abpath[-lenght:]==format:
-        print(f"File: {abpath}, Size: {size/1000}KB")
-    num+=1
+    lower_byte= int(input('Lower Byte limit: '))
+    max_byte  = int(input('Max Byte limit: '))
+    for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True): 
+        if lower_byte<size<max_byte:
+            print(f"{num}). Size: {size/1000}KB, File: {abpath}")
+        num+=1
+
+# option 3: only files ending in .{formatinput}  
+elif option=='3': 
+    conteo=0
+    format=input('What format do you want to search: ')
+    for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):         
+        lenght=len(format)
+        if abpath[-lenght:]==format:
+            print(f"{num}). Size: {size/1000}KB, File: {abpath}")
+            conteo+=1
+        num+=1
+    print(f"\nNúmero de archivos encontrados: {conteo}")
+else:
+    print("Not valid option")
+
 
     
 
