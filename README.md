@@ -8,9 +8,9 @@ This Python script analyzes the sizes of files in a specified directory. It prov
 2. Clone this repository or download the `file.py` file.
 3. Open a terminal or command prompt.
 4. Navigate to the directory where the `file.py` file is located.
-5. Run the script with the following command:
+5. Run the script with the following command: "python file.py <directory_path> <option>"
 
-python file.py <directory_path> <optionchoosing>
+
 
 Replace `<directory_path>` with the path to the directory you want to analyze.
 
