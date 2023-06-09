@@ -1,21 +1,26 @@
-import sqlite3
 import os 
 import sys
 
+# Define a function for walking through a folder and collecting file information
 def walking(folder):
-    totalfiles=0
-    pareja=[]
-    
+    pareja = []
+    # Use os.walk to traverse the folder recursively
     for root, directories, files in os.walk(folder):
         for file in files:
-            absolute_path=os.path.join(root,file)
-            size= os.path.getsize(absolute_path)
-            pareja.append((absolute_path,size))
+            # Get the absolute path of each file
+            absolute_path = os.path.join(root, file)
+            # Get the size of the file using os.path.getsize
+            size = os.path.getsize(absolute_path)
+            # Append a tuple of (absolute_path, size) to the list
+            pareja.append((absolute_path, size))
+    
+    # Return the list of file information
     return pareja
 
-#Takes an argument from the terminal
-path=sys.argv[1]
-all_files=walking(path)
+# Take an argument from the terminal
+path = sys.argv[1]
+# Call the walking function to get all file information in the specified path
+all_files = walking(path)
 
 
 num=0
@@ -31,7 +36,7 @@ for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):
     #     print(f"File: {abpath}, Size: {size/1000}KB")
 
     #option 3: only files ending in .{format}    
-    format='.sample'
+    format='.py'
     lenght=len(format)
     if abpath[-lenght:]==format:
         print(f"File: {abpath}, Size: {size/1000}KB")
