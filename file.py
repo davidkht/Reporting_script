@@ -4,20 +4,39 @@ import sys
 
 def walking(folder):
     totalfiles=0
+    pareja=[]
+    
     for root, directories, files in os.walk(folder):
-
-        # for directory in directories:
-        #     absolute_path=os.path.join(root,directory)
-        #     print(f"Dir Path: {absolute_path}")
         for file in files:
             absolute_path=os.path.join(root,file)
             size= os.path.getsize(absolute_path)
-            print(f"File Path: {absolute_path}\nSize: {size/1000}KB")
-            totalfiles += 1
-    print(totalfiles)
+            pareja.append((absolute_path,size))
+    return pareja
 
-
-    
 #Takes an argument from the terminal
 path=sys.argv[1]
-walking(path)
+all_files=walking(path)
+
+
+num=0
+#only 1 of the three options must be used. Comment the one not used.
+for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):
+    #option 1: prints the 10 largest files
+    # if num>10:
+    #     break    
+    # print(f"File: {abpath}, Size: {size/1000}KB")
+
+    #option 2: prints only files with size between 600 and 1000 bytes
+    # if 600<size<2000:
+    #     print(f"File: {abpath}, Size: {size/1000}KB")
+
+    #option 3: only files ending in .{format}    
+    format='.sample'
+    lenght=len(format)
+    if abpath[-lenght:]==format:
+        print(f"File: {abpath}, Size: {size/1000}KB")
+    num+=1
+
+    
+
+
