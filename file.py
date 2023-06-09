@@ -24,7 +24,14 @@ all_files = walking(path)
 
 
 num=0
-#only 1 of the three options must be used. Comment the one not used.
+# only 1 of the three options must be used. Comment the one not used.
+# Sort the list of all_files based on the second element of each tuple (size),
+# in descending order (largest to smallest) using the sorted() function.
+# The key parameter specifies a function of one argument that is used to extract a comparison key from each tuple.
+# Here, we use a lambda function to specify the key as the second element (x[1]) of each tuple.
+# The lambda function takes each tuple (x) and returns its second element (size) for comparison.
+# The reverse parameter is set to True to sort the list in descending order.
+# The resulting sorted list is iterated in the for loop.
 for abpath, size in sorted(all_files, key=lambda x:x[1],reverse=True):
     #option 1: prints the 10 largest files
     # if num>10:
